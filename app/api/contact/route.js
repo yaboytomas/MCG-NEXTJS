@@ -3,13 +3,12 @@ import { google } from 'googleapis'
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 function getAuth() {
-  const b64 = process.env.GOOGLE_CREDENTIALS_BASE64
-  if (!b64) throw new Error('GOOGLE_CREDENTIALS_BASE64 env var is not set')
-
-  const credentials = JSON.parse(Buffer.from(b64, 'base64').toString('utf8'))
+  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
+  const raw = process.env.GOOGLE_PRIVATE_KEY ?? ''
+  const private_key = raw.replace(/\\n/g, '\n')
 
   return new google.auth.GoogleAuth({
-    credentials,
+    credentials: { client_email: email, private_key },
     scopes: SCOPES,
   })
 }
