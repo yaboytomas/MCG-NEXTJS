@@ -2,15 +2,24 @@ import { google } from 'googleapis'
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
+function normalizeKey(raw) {
+  // Strip surrounding quotes if accidentally included
+  let key = raw.trim().replace(/^["']|["']$/g, '')
+  // Convert literal \n (two chars) to real newlines
+  key = key.replace(/\\n/g, '\n')
+  return key
+}
+
 function getAuth() {
   const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ?? ''
   const raw   = process.env.GOOGLE_PRIVATE_KEY ?? ''
-  const private_key = raw.includes('\\n') ? raw.replace(/\\n/g, '\n') : raw
+  const private_key = normalizeKey(raw)
 
-  // Diagnostic — visible in Vercel function logs
-  console.log('[auth] email set:', !!email, '| email preview:', email.slice(0, 20))
-  console.log('[auth] key set:', !!raw, '| key starts with:', raw.slice(0, 27))
-  console.log('[auth] key ends with:', raw.slice(-25))
+  console.log('[auth] email preview:', email.slice(0, 30))
+  console.log('[auth] key length:', private_key.length)
+  console.log('[auth] key lines:', private_key.split('\n').length)
+  console.log('[auth] first line:', private_key.split('\n')[0])
+  console.log('[auth] last line:', private_key.split('\n').filter(Boolean).at(-1))
 
   return new google.auth.GoogleAuth({
     credentials: { client_email: email, private_key },
