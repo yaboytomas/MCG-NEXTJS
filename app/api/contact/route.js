@@ -3,11 +3,17 @@ import { google } from 'googleapis'
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 function getAuth() {
-  const credentials = {
-    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-  }
-  return new google.auth.JWT(credentials.client_email, null, credentials.private_key, SCOPES)
+  const raw = process.env.GOOGLE_PRIVATE_KEY ?? ''
+  // Vercel stores the key with literal \n — normalise to real newlines
+  const private_key = raw.includes('\\n') ? raw.replace(/\\n/g, '\n') : raw
+
+  return new google.auth.GoogleAuth({
+    credentials: {
+      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      private_key,
+    },
+    scopes: SCOPES,
+  })
 }
 
 export async function POST(request) {
@@ -21,7 +27,6 @@ export async function POST(request) {
 
     const auth = getAuth()
     const sheets = google.sheets({ version: 'v4', auth })
-
     const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })
 
     await sheets.spreadsheets.values.append({
@@ -29,24 +34,13 @@ export async function POST(request) {
       range: 'Sheet1!A:J',
       valueInputOption: 'USER_ENTERED',
       requestBody: {
-        values: [[
-          timestamp,
-          firstName,
-          lastName,
-          email,
-          company,
-          role,
-          stage,
-          interest,
-          hispanic,
-          context,
-        ]],
+        values: [[timestamp, firstName, lastName, email, company, role, stage, interest, hispanic, context]],
       },
     })
 
     return Response.json({ success: true })
   } catch (err) {
-    console.error('Google Sheets error:', err)
+    console.error('Google Sheets error:', err?.message ?? err)
     return Response.json({ error: 'Failed to save submission' }, { status: 500 })
   }
 }
