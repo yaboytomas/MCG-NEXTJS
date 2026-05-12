@@ -62,9 +62,13 @@ export default function Contact() {
     e.preventDefault()
     setStatus('sending')
     const form = e.target
-    const data = new FormData(form)
+    const data = Object.fromEntries(new FormData(form).entries())
     try {
-      const res = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
       if (res.ok) { setStatus('sent'); form.reset() }
       else throw new Error()
     } catch {
@@ -83,8 +87,6 @@ export default function Contact() {
           {/* Replace YOUR_FORM_ID at formspree.io/forms to activate email delivery */}
           <form
             className="form-shell"
-            action="https://formspree.io/f/YOUR_FORM_ID"
-            method="POST"
             onSubmit={handleSubmit}
             noValidate
           >
