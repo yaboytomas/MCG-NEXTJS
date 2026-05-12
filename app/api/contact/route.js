@@ -3,15 +3,17 @@ import { google } from 'googleapis'
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 function getAuth() {
-  const raw = process.env.GOOGLE_PRIVATE_KEY ?? ''
-  // Vercel stores the key with literal \n — normalise to real newlines
+  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ?? ''
+  const raw   = process.env.GOOGLE_PRIVATE_KEY ?? ''
   const private_key = raw.includes('\\n') ? raw.replace(/\\n/g, '\n') : raw
 
+  // Diagnostic — visible in Vercel function logs
+  console.log('[auth] email set:', !!email, '| email preview:', email.slice(0, 20))
+  console.log('[auth] key set:', !!raw, '| key starts with:', raw.slice(0, 27))
+  console.log('[auth] key ends with:', raw.slice(-25))
+
   return new google.auth.GoogleAuth({
-    credentials: {
-      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      private_key,
-    },
+    credentials: { client_email: email, private_key },
     scopes: SCOPES,
   })
 }
