@@ -2,27 +2,14 @@ import { google } from 'googleapis'
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
-function normalizeKey(raw) {
-  // Strip surrounding quotes if accidentally included
-  let key = raw.trim().replace(/^["']|["']$/g, '')
-  // Convert literal \n (two chars) to real newlines
-  key = key.replace(/\\n/g, '\n')
-  return key
-}
-
 function getAuth() {
-  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ?? ''
-  const raw   = process.env.GOOGLE_PRIVATE_KEY ?? ''
-  const private_key = normalizeKey(raw)
+  const b64 = process.env.GOOGLE_CREDENTIALS_BASE64
+  if (!b64) throw new Error('GOOGLE_CREDENTIALS_BASE64 env var is not set')
 
-  console.log('[auth] email preview:', email.slice(0, 30))
-  console.log('[auth] key length:', private_key.length)
-  console.log('[auth] key lines:', private_key.split('\n').length)
-  console.log('[auth] first line:', private_key.split('\n')[0])
-  console.log('[auth] last line:', private_key.split('\n').filter(Boolean).at(-1))
+  const credentials = JSON.parse(Buffer.from(b64, 'base64').toString('utf8'))
 
   return new google.auth.GoogleAuth({
-    credentials: { client_email: email, private_key },
+    credentials,
     scopes: SCOPES,
   })
 }
