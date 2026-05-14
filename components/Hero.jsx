@@ -73,7 +73,7 @@ export default function Hero() {
                 ))}
                 {li === 2 && (
                   <span className="hero-line" style={{ overflow: 'hidden', display: 'inline-block' }}>
-                    <motion.em variants={word} style={{ display: 'inline-block' }}>&ldquo;Mean It&rdquo;</motion.em>
+                    <motion.em variants={word} style={{ display: 'inline-block' }}>Mean It</motion.em>
                   </span>
                 )}
               </span>

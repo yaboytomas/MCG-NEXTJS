@@ -57,8 +57,8 @@ export default function Services() {
   return (
     <section id="svc">
       <div className="con">
-        <FadeUp><div className="s-label">How We Partner With You</div></FadeUp>
-        <FadeUp delay={0.08}><h2 className="s-title" style={{ maxWidth: 500 }}>Three Pathways to Lasting Growth</h2></FadeUp>
+        <FadeUp style={{ textAlign: 'center' }}><div className="s-label">How We Partner With You</div></FadeUp>
+        <FadeUp delay={0.08}><h2 className="s-title" style={{ maxWidth: 500, margin: '0 auto 20px' }}>Three Pathways to Lasting Growth</h2></FadeUp>
         {services.map((s, i) => <ServiceRow key={s.n} item={s} index={i} />)}
       </div>
     </section>

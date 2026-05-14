@@ -20,13 +20,13 @@ export default function HispanicFeature() {
     <section id="hisp">
       <div className="con">
         <FadeUp>
-          <div className="hisp-inner">
+          <div className="hisp-inner" style={{ textAlign: 'center' }}>
             <div className="s-label">Hispanic Market Expansion</div>
             <div className="hisp-n grad-text">Top 5</div>
-            <h3 className="hisp-title">
+            <h3 className="hisp-title" style={{ margin: '0 auto 20px' }}>
               If U.S. Latinos were their own country, they&apos;d rank among the top five economies in the world.
             </h3>
-            <p className="hisp-body">
+            <p className="hisp-body" style={{ margin: '0 auto 32px' }}>
               Overlooking that reality isn&apos;t a strategy. Engaging with it intentionally is one of the most significant
               growth opportunities available today. Because of our leadership within Hispanic business organizations
               and deep personal ties to the community, MCG brings a distinct and informed perspective that no

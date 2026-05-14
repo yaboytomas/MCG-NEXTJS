@@ -131,12 +131,12 @@ section { position: relative; z-index: 3; }
 .s-label {
   font-size: .7rem; font-weight: 600; letter-spacing: .14em;
   text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
-  display: block;
+  display: block; text-align: center;
 }
 .s-title {
   font-family: var(--serif);
   font-size: clamp(1.9rem, 3.5vw, 3rem);
-  font-weight: 600; line-height: 1.18; margin-bottom: 20px;
+  font-weight: 600; line-height: 1.18; margin-bottom: 20px; text-align: center;
 }
 .s-body { font-size: .98rem; color: rgba(245,237,232,.58); line-height: 1.88; max-width: 640px; }
 .gold-bar { width: 40px; height: 2px; background: linear-gradient(90deg, var(--gold), var(--rose)); margin-bottom: 22px; }
@@ -225,6 +225,7 @@ section { position: relative; z-index: 3; }
 .hero-sub { font-family: var(--serif); font-size: clamp(1rem, 2vw, 1.3rem); font-style: italic; color: var(--m); margin-bottom: 24px; }
 .hero-desc { font-size: 1rem; color: rgba(245,237,232,.56); line-height: 1.85; max-width: 580px; margin-bottom: 44px; }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+@media (max-width: 720px) { .hero-actions { justify-content: center; } }
 .hero-deco {
   background: var(--gl); border: 1px solid var(--gb); border-radius: 18px;
   padding: 26px 30px; backdrop-filter: blur(24px); width: 260px; flex-shrink: 0; display: none;
@@ -345,7 +346,7 @@ section { position: relative; z-index: 3; }
 }
 .cap-label { font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--rose); margin-bottom: 6px; }
 .cap-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; max-width: 480px; }
-@media (max-width: 720px) { .cap-strip { padding: 28px 24px; } }
+@media (max-width: 720px) { .cap-strip { padding: 28px 24px; justify-content: center; text-align: center; } }
 
 /* ── Hispanic Feature ────────────────────────────── */
 #hisp { padding: 100px 0; }
@@ -398,13 +399,14 @@ section { position: relative; z-index: 3; }
 .cert-sub { font-size: .66rem; color: var(--m); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 2px; }
 .cert-main { font-size: .8rem; color: var(--w); font-weight: 500; }
 .about-tag { display: inline-block; padding: 5px 14px; background: var(--rd); border: 1px solid var(--rb); border-radius: 100px; font-size: .72rem; color: var(--rose); font-weight: 500; letter-spacing: .05em; margin-bottom: 10px; }
-.about-name { font-family: var(--serif); font-size: 2.3rem; font-weight: 700; margin-bottom: 20px; }
+.about-name { font-family: var(--serif); font-size: 2.3rem; font-weight: 700; margin-bottom: 20px; text-align: center; }
 .about-body { font-size: .91rem; color: rgba(245,237,232,.62); line-height: 1.9; margin-bottom: 16px; }
 .about-quote { background: rgba(194,122,98,.06); border: 1px solid rgba(194,122,98,.18); border-left: 3px solid var(--rose); border-radius: 0 12px 12px 0; padding: 16px 20px; font-size: .9rem; color: rgba(245,237,232,.76); font-style: italic; line-height: 1.78; margin-bottom: 24px; }
 .affil-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 26px; }
 .affil-item { display: flex; align-items: center; gap: 10px; font-size: .76rem; color: var(--m); }
 .affil-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--rose); flex-shrink: 0; }
 @media (max-width: 960px) { .about-grid { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { .about-cta-wrap { text-align: center; } }
 
 /* ── Testimonials ────────────────────────────────── */
 #testi { padding: 120px 0; }

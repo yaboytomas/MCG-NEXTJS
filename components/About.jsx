@@ -73,7 +73,7 @@ export default function About() {
                 ))}
               </div>
             </FadeUp>
-            <FadeUp delay={0.34}>
+            <FadeUp delay={0.34} className="about-cta-wrap">
               <MagLink href="#contact" className="btn-ghost">Invite Me to Speak</MagLink>
             </FadeUp>
           </div>
